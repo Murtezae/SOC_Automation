@@ -1,6 +1,9 @@
 # 
-Overview
-This project demonstrates an automated Security Operations Center (SOC) workflow using Wazuh for detection, TheHive for incident case management, and Shuffle for SOAR-based alert enrichment and response. A simulated credential-dumping attack using Mimikatz was detected, enriched with threat intelligence, and automatically escalated.
+Overview:
+
+This project demonstrates an automated Security Operations Center (SOC) workflow using Wazuh for detection, TheHive for incident case management, 
+and Shuffle for SOAR-based alert enrichment and response. A simulated credential-dumping attack using Mimikatz was detected, enriched with threat 
+intelligence, and automatically escalated.
 
 Architecture
 Wazuh – SIEM and endpoint monitoring
