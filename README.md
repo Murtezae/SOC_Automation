@@ -5,6 +5,7 @@ This project demonstrates an automated Security Operations Center (SOC) workflow
 and Shuffle for SOAR-based alert enrichment and response. A simulated credential-dumping attack using Mimikatz was detected, enriched with threat 
 intelligence, and automatically escalated.
 
+
 Architecture:
 
 Wazuh – SIEM and endpoint monitoring
@@ -14,11 +15,13 @@ Shuffle – SOAR automation and alert enrichment
 VirusTotal – Threat intelligence enrichment
 Email – Automated alert notification
 
+
 Environment:
 
 Cloud-hosted Ubuntu instances (Vultr) for Wazuh Manager and TheHive
 Windows 10 endpoint with Wazuh Agent and Sysmon installed
 Secure web access enabled via port 443
+
 
 
 Detection & Automation Flow:
@@ -31,11 +34,13 @@ Incident case is created in TheHive
 Automated email notification is sent to analysts
 
 
+
 Results:
 
 Successful detection of Mimikatz credential-dumping activity
 Automated alert enrichment and incident creation
 End-to-end SOC workflow without manual intervention
+
 
 
 Skills Demonstrated:
