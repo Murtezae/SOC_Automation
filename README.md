@@ -63,12 +63,16 @@ Within Shuffle, SHA256 file hashes are extracted using regex-based parsing and e
 To simulate malicious credential access, Mimikatz was executed on the Windows endpoint. The activity was successfully detected by Wazuh, enriched automatically via Shuffle, and escalated through both an email alert and the creation of an incident case in TheHive.
 
 ![Mimikatz Detection](images/mimi.png)
+Execution of Mimikatz on the monitored Windows endpoint to simulate malicious credential access.
+
 
 ![TheHive Incident Case](images/hive.png)
+TheHive automatically receives the alert from Wazuh and generates an incident case for analyst investigation.
+
 
 ![Email Alert Notification](images/gmail.png)
+Automated email notification generated via Shuffle SOAR upon detection of Mimikatz activity.
 
-Execution of Mimikatz on the monitored Windows endpoint to simulate credential-dumping activity.
 
 ---
 
