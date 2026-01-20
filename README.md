@@ -6,11 +6,12 @@ This project implements a cloud-based SOC architecture where Wazuh functions as 
 
 A simulated credential-dumping attack using Mimikatz was detected, enriched with threat intelligence, and automatically escalated without manual intervention.
 
-![SOC Architecture](images/architecture.png)
-
 ---
 
 ## Architecture
+
+![SOC Architecture](images/architecture.png)
+
 
 - **Wazuh** – SIEM and endpoint monitoring  
 - **Sysmon** – Enhanced Windows telemetry  
@@ -39,9 +40,9 @@ Cloud-hosted Ubuntu-based instances were provisioned on Vultr to host the Wazuh 
 
 The Wazuh agent was installed on a Windows 10 endpoint and integrated with Sysmon to collect detailed process creation and security telemetry. The agent’s `ossec.conf` configuration was updated to ingest Sysmon event logs, enabling enhanced detection of malicious behavior.
 
-![Wazuh Agent Configuration](images/conf.png)
-
 ![Wazuh Manager Instance](images/wazuhins.png)
+
+![Wazuh Agent Configuration](images/conf.png)
 
 ---
 
@@ -51,9 +52,9 @@ Sysmon captures process execution activity on the monitored Windows endpoint and
 
 Within Shuffle, SHA256 file hashes are extracted using regex-based parsing and enriched by querying the VirusTotal API for threat intelligence and reputation data.
 
-![Regex-Based Hash Extraction](images/regex.png)
-
 ![Shuffle SOAR Workflow](images/shuffler.png)
+
+![Regex-Based Hash Extraction](images/regex.png)
 
 ---
 
