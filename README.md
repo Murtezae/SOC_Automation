@@ -1,51 +1,81 @@
-# 
-**Overview:**
+---
 
-This project demonstrates an automated Security Operations Center (SOC) workflow using Wazuh for detection, TheHive for incident case management, 
-and Shuffle for SOAR-based alert enrichment and response. A simulated credential-dumping attack using Mimikatz was detected, enriched with threat 
-intelligence, and automatically escalated.
+## Architecture Overview
 
+![SOC Architecture](images/architecture.png)
 
-**Architecture:**
+This diagram shows the overall SOC automation architecture, including Wazuh, TheHive, Shuffle SOAR, threat intelligence enrichment, and alert notification flow.
 
-Wazuh – SIEM and endpoint monitoring
-Sysmon – Enhanced Windows telemetry
-TheHive – Incident and case management
-Shuffle – SOAR automation and alert enrichment
-VirusTotal – Threat intelligence enrichment
-Email – Automated alert notification
+---
 
+## Wazuh Configuration & Detection
 
-**Environment:**
+![Wazuh Configuration](images/conf.png)
 
-Cloud-hosted Ubuntu instances (Vultr) for Wazuh Manager and TheHive
-Windows 10 endpoint with Wazuh Agent and Sysmon installed
-Secure web access enabled via port 443
+Custom Wazuh configuration used to ingest Sysmon logs and detect credential-dumping activity.
 
+---
 
+## Mimikatz Detection
 
-**Detection & Automation Flow:**
+![Mimikatz Detection](images/mimi.png)
 
-Sysmon captures process activity on the Windows endpoint
-Wazuh ingests logs and detects Mimikatz execution
-Alert is forwarded to Shuffle for automated enrichment
-SHA256 hashes are extracted and checked against VirusTotal
-Incident case is created in TheHive
-Automated email notification is sent to analysts
+Wazuh detection of Mimikatz execution on the Windows endpoint using Sysmon telemetry and custom rules.
 
+---
 
+## Regex-Based Rule Matching
 
-**Results:**
+![Regex Rules](images/regex.png)
 
-Successful detection of Mimikatz credential-dumping activity
-Automated alert enrichment and incident creation
-End-to-end SOC workflow without manual intervention
+Regex patterns used to identify suspicious process behavior associated with credential dumping.
 
+---
 
+## Shuffle SOAR Automation
 
-**Skills Demonstrated:**
+![Shuffle Workflow](images/shuffler.png)
 
-SIEM deployment and log analysis
-Endpoint monitoring and detection engineering
-SOAR automation and threat intelligence enrichment
-Incident response and case management
+Shuffle SOAR workflow used to enrich alerts, extract hashes, query VirusTotal, and automate incident response actions.
+
+---
+
+## TheHive Incident Creation
+
+![TheHive Case](images/hive.png)
+
+Automatically created incident case in TheHive based on enriched alerts from Shuffle.
+
+---
+
+## Email Alert Notification
+
+![Email Alert](images/gmail.png)
+
+Automated email notification sent to analysts when a high-severity alert and incident are generated.
+
+---
+
+## Wazuh Manager Infrastructure
+
+![Wazuh Instance](images/wazuhins.png)
+
+Cloud-hosted Wazuh Manager instance responsible for log ingestion, detection, and alert forwarding.
+
+---
+
+## Firewall Configuration
+
+![UFW Rules](images/ufw.png)
+
+UFW firewall rules securing the SOC infrastructure while allowing required services over port 443.
+
+---
+
+## Cloud Hosting Platform
+
+![Vultr Hosting](images/vultr.png)
+
+Vultr cloud infrastructure hosting the Wazuh Manager and TheHive services.
+
+---
