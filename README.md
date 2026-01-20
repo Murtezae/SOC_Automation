@@ -1,27 +1,43 @@
----
+# SOC Automation Lab – Wazuh, TheHive & Shuffle
 
-## Project Overview
+## Overview
 
 This project implements a cloud-based SOC architecture where Wazuh functions as the SIEM and endpoint monitoring platform, TheHive is used for incident and case management, and Shuffle provides automated SOAR workflows for alert enrichment and response.
+
+A simulated credential-dumping attack using Mimikatz was detected, enriched with threat intelligence, and automatically escalated without manual intervention.
 
 ![SOC Architecture](images/architecture.png)
 
 ---
 
-## Infrastructure & Cloud Setup
+## Architecture
 
-Provisioned Ubuntu-based cloud instances on Vultr to host the Wazuh Manager and TheHive services. Configured firewall rules (UFW) to allow secure web access over port 443.
+- **Wazuh** – SIEM and endpoint monitoring  
+- **Sysmon** – Enhanced Windows telemetry  
+- **TheHive** – Incident and case management  
+- **Shuffle** – SOAR automation and alert enrichment  
+- **VirusTotal** – Threat intelligence enrichment  
+- **Email** – Automated alert notification  
+
+---
+
+## Environment
+
+Cloud-hosted Ubuntu-based instances were provisioned on Vultr to host the Wazuh Manager and TheHive services. Firewall rules were configured using UFW to allow secure web access over port 443.
+
+- Ubuntu cloud instances (Vultr)
+- Windows 10 endpoint with Wazuh Agent and Sysmon installed
+- Secure access via HTTPS (443)
 
 ![Vultr Cloud Hosting](images/vultr.png)
-Vultr cloud infrastructure hosting the Wazuh Manager and TheHive services.
 
-![UFW Firewall Configuration](images/ufw.png)
+![UFW Firewall Rules](images/ufw.png)
 
 ---
 
 ## Configuration & Endpoint Monitoring
 
-Installed the Wazuh agent on a Windows 10 endpoint and integrated Sysmon to collect detailed Windows process and security telemetry. Updated the agent’s `ossec.conf` configuration to ingest Sysmon event logs for enhanced detection capabilities.
+The Wazuh agent was installed on a Windows 10 endpoint and integrated with Sysmon to collect detailed process creation and security telemetry. The agent’s `ossec.conf` configuration was updated to ingest Sysmon event logs, enabling enhanced detection of malicious behavior.
 
 ![Wazuh Agent Configuration](images/conf.png)
 
@@ -29,29 +45,47 @@ Installed the Wazuh agent on a Windows 10 endpoint and integrated Sysmon to coll
 
 ---
 
-## SOC Automation with Shuffle & VirusTotal
+## Detection & SOC Automation Flow
 
-Developed an automated SOAR workflow in Shuffle that triggers on Wazuh alerts, extracts SHA256 file hashes using Regex, and enriches the alert by querying the VirusTotal API for threat intelligence and reputation data.
+Sysmon captures process execution activity on the monitored Windows endpoint and forwards the logs to Wazuh for analysis. When Mimikatz execution is detected, Wazuh generates an alert and forwards it to Shuffle for automated SOAR processing.
 
-![Shuffle SOAR Workflow](images/shuffler.png)
+Within Shuffle, SHA256 file hashes are extracted using regex-based parsing and enriched by querying the VirusTotal API for threat intelligence and reputation data.
 
 ![Regex-Based Hash Extraction](images/regex.png)
+
+![Shuffle SOAR Workflow](images/shuffler.png)
 
 ---
 
 ## Incident Response & Result
 
-Simulated a credential-dumping attack by executing Mimikatz on the Windows endpoint. The activity was successfully detected by Wazuh, enriched via Shuffle automation, and escalated through both an automatically created incident ticket in TheHive and an email alert.
+To simulate malicious credential access, Mimikatz was executed on the Windows endpoint. The activity was successfully detected by Wazuh, enriched automatically via Shuffle, and escalated through both an email alert and the creation of an incident case in TheHive.
 
-![Mimikatz Execution Detection](images/mimi.png)
-Execution of Mimikatz on the monitored Windows endpoint to simulate malicious credential access.
+![Mimikatz Detection](images/mimi.png)
 
 ![TheHive Incident Case](images/hive.png)
-TheHive automatically receives the alert from Wazuh and generates an incident case for analyst investigation.
 
 ![Email Alert Notification](images/gmail.png)
-Automated email notification generated via Shuffle SOAR upon detection of Mimikatz activity.
 
-
+Execution of Mimikatz on the monitored Windows endpoint to simulate credential-dumping activity.
 
 ---
+
+## Results
+
+- Successful detection of Mimikatz credential-dumping activity  
+- Automated alert enrichment using VirusTotal  
+- Automatic incident creation in TheHive  
+- End-to-end SOC workflow with no manual intervention  
+
+---
+
+## Skills Demonstrated
+
+- SIEM deployment and log analysis  
+- Endpoint monitoring and detection engineering  
+- SOAR automation and threat intelligence enrichment  
+- Incident response and case management  
+
+---
+
