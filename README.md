@@ -1,80 +1,57 @@
 ---
 
-## Architecture Overview
+## Project Overview
+
+This project implements a cloud-based SOC architecture where Wazuh functions as the SIEM and endpoint monitoring platform, TheHive is used for incident and case management, and Shuffle provides automated SOAR workflows for alert enrichment and response.
 
 ![SOC Architecture](images/architecture.png)
 
-This diagram shows the overall SOC automation architecture, including Wazuh, TheHive, Shuffle SOAR, threat intelligence enrichment, and alert notification flow.
+---
+
+## Infrastructure & Cloud Setup
+
+Provisioned Ubuntu-based cloud instances on Vultr to host the Wazuh Manager and TheHive services. Configured firewall rules (UFW) to allow secure web access over port 443.
+
+![Vultr Cloud Hosting](images/vultr.png)
+
+![UFW Firewall Configuration](images/ufw.png)
 
 ---
 
-## Wazuh Configuration & Detection
+## Configuration & Endpoint Monitoring
 
-![Wazuh Configuration](images/conf.png)
+Installed the Wazuh agent on a Windows 10 endpoint and integrated Sysmon to collect detailed Windows process and security telemetry. Updated the agent’s `ossec.conf` configuration to ingest Sysmon event logs for enhanced detection capabilities.
 
-Custom Wazuh configuration used to ingest Sysmon logs and detect credential-dumping activity.
+![Wazuh Agent Configuration](images/conf.png)
 
----
-
-## Mimikatz Detection
-
-![Mimikatz Detection](images/mimi.png)
-
-Wazuh detection of Mimikatz execution on the Windows endpoint using Sysmon telemetry and custom rules.
+![Wazuh Manager Instance](images/wazuhins.png)
 
 ---
 
-## Regex-Based Rule Matching
+## SOC Automation with Shuffle & VirusTotal
 
-![Regex Rules](images/regex.png)
+Developed an automated SOAR workflow in Shuffle that triggers on Wazuh alerts, extracts SHA256 file hashes using Regex, and enriches the alert by querying the VirusTotal API for threat intelligence and reputation data.
 
-Regex patterns used to identify suspicious process behavior associated with credential dumping.
+![Regex-Based Hash Extraction](images/regex.png)
 
----
-
-## Shuffle SOAR Automation
-
-![Shuffle Workflow](images/shuffler.png)
-
-Shuffle SOAR workflow used to enrich alerts, extract hashes, query VirusTotal, and automate incident response actions.
+![Shuffle SOAR Workflow](images/shuffler.png)
 
 ---
 
-## TheHive Incident Creation
+## Incident Response & Result
 
-![TheHive Case](images/hive.png)
+Simulated a credential-dumping attack by executing Mimikatz on the Windows endpoint. The activity was successfully detected by Wazuh, enriched via Shuffle automation, and escalated through both an email alert and an automatically created incident ticket in TheHive.
 
-Automatically created incident case in TheHive based on enriched alerts from Shuffle.
+![Mimikatz Execution Detection](images/mimi.png)
 
----
+![TheHive Incident Case](images/hive.png)
 
-## Email Alert Notification
+![Email Alert Notification](images/gmail.png)
 
-![Email Alert](images/gmail.png)
-
-Automated email notification sent to analysts when a high-severity alert and incident are generated.
+Execution of Mimikatz on the monitored Windows endpoint to simulate malicious credential access.
 
 ---
 
-## Wazuh Manager Infrastructure
-
-![Wazuh Instance](images/wazuhins.png)
-
-Cloud-hosted Wazuh Manager instance responsible for log ingestion, detection, and alert forwarding.
-
----
-
-## Firewall Configuration
-
-![UFW Rules](images/ufw.png)
-
-UFW firewall rules securing the SOC infrastructure while allowing required services over port 443.
-
----
-
-## Cloud Hosting Platform
-
-![Vultr Hosting](images/vultr.png)
 
 Vultr cloud infrastructure hosting the Wazuh Manager and TheHive services.
 
