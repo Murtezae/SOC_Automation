@@ -13,6 +13,7 @@ This project implements a cloud-based SOC architecture where Wazuh functions as 
 Provisioned Ubuntu-based cloud instances on Vultr to host the Wazuh Manager and TheHive services. Configured firewall rules (UFW) to allow secure web access over port 443.
 
 ![Vultr Cloud Hosting](images/vultr.png)
+Vultr cloud infrastructure hosting the Wazuh Manager and TheHive services.
 
 ![UFW Firewall Configuration](images/ufw.png)
 
@@ -32,27 +33,25 @@ Installed the Wazuh agent on a Windows 10 endpoint and integrated Sysmon to coll
 
 Developed an automated SOAR workflow in Shuffle that triggers on Wazuh alerts, extracts SHA256 file hashes using Regex, and enriches the alert by querying the VirusTotal API for threat intelligence and reputation data.
 
-![Regex-Based Hash Extraction](images/regex.png)
-
 ![Shuffle SOAR Workflow](images/shuffler.png)
+
+![Regex-Based Hash Extraction](images/regex.png)
 
 ---
 
 ## Incident Response & Result
 
-Simulated a credential-dumping attack by executing Mimikatz on the Windows endpoint. The activity was successfully detected by Wazuh, enriched via Shuffle automation, and escalated through both an email alert and an automatically created incident ticket in TheHive.
+Simulated a credential-dumping attack by executing Mimikatz on the Windows endpoint. The activity was successfully detected by Wazuh, enriched via Shuffle automation, and escalated through both an automatically created incident ticket in TheHive and an email alert.
 
 ![Mimikatz Execution Detection](images/mimi.png)
-
-![TheHive Incident Case](images/hive.png)
-
-![Email Alert Notification](images/gmail.png)
-
 Execution of Mimikatz on the monitored Windows endpoint to simulate malicious credential access.
 
----
+![TheHive Incident Case](images/hive.png)
+TheHive automatically receives the alert from Wazuh and generates an incident case for analyst investigation.
+
+![Email Alert Notification](images/gmail.png)
+Automated email notification generated via Shuffle SOAR upon detection of Mimikatz activity.
 
 
-Vultr cloud infrastructure hosting the Wazuh Manager and TheHive services.
 
 ---
